@@ -28,7 +28,7 @@ public class GameLogic {
     }
 
     public static boolean isMoveValid(int[][] board) {
-        return areValsInRowValid(board) || areValsInColValid(board) || isSquareRowValid(board);
+        return areValsInRowValid(board) && areValsInColValid(board) && isSquareRowValid(board);
     }
 
     private static boolean isSquareRowValid(int[][] board) {

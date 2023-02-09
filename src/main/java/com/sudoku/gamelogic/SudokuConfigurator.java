@@ -55,6 +55,7 @@ public class SudokuConfigurator {
         return newBoard;
     }
 
+    /** TODO(Khalid): Refactor to include graph coloring algorithm. */
     private static void allocateValues(int num, Random random, int[][] newBoard) {
         int numAlloc = 0;
         List<Coordinates> coordinates = new ArrayList<>();
