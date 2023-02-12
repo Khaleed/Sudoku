@@ -3,7 +3,7 @@ package com.sudoku.userinterface.controllogic;
 import com.sudoku.constants.Dialog;
 import com.sudoku.constants.GameState;
 import com.sudoku.gamelogic.GameLogic;
-import com.sudoku.problemdomain.RecordInterface;
+import com.sudoku.storage.StorageInterface;
 import com.sudoku.problemdomain.Sudoku;
 import com.sudoku.userinterface.UserInterfaceContract;
 
@@ -11,23 +11,28 @@ import java.io.IOException;
 
 /** Class that responds to commands from user to update UI and back-end. */
 public class ControlLogic implements UserInterfaceContract.EventListener {
-    private RecordInterface recordInterface;
-    private UserInterfaceContract.View view;
+    private final StorageInterface storageInterface;
+    private final UserInterfaceContract.View view;
+
+    public ControlLogic(StorageInterface storageInterface, UserInterfaceContract.View view) {
+        this.storageInterface = storageInterface;
+        this.view = view;
+    }
 
     @Override
     public void onInput(int x, int y, int input) {
         try {
             // Update copy of current game data.
-            Sudoku sudokuData = recordInterface.getGameRecord();
+            Sudoku sudokuData = storageInterface.retrieveData();
             int[][] newSudokuData = sudokuData.getGridCopy();
             newSudokuData[x][y] = input;
             sudokuData = new Sudoku(GameLogic.finishedGame(newSudokuData), newSudokuData);
-            recordInterface.updateGameRecord(sudokuData);
+            storageInterface.storeData(sudokuData);
             // Change UI.
             view.placeOnSquare(x, y, input);
             // Check game is complete.
             if (sudokuData.getGameState() == GameState.FINISHED) {
-                view.printDialog(Dialog.ERROR);
+                view.printDialog(Dialog.GAME_WON);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -38,8 +43,8 @@ public class ControlLogic implements UserInterfaceContract.EventListener {
     @Override
     public void showDialog() {
         try {
-            recordInterface.updateGameRecord(GameLogic.getNewGame());
-            view.updateGameBoard(recordInterface.getGameRecord());
+            storageInterface.storeData(GameLogic.getNewGame());
+            view.updateGameBoard(storageInterface.retrieveData());
         } catch(IOException e) {
             e.printStackTrace();
             view.printError(Dialog.ERROR);

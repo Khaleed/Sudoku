@@ -26,7 +26,7 @@ public class UserInterfaceImpl implements UserInterfaceContract.View, EventHandl
     private final Stage stage;
     private final Group group;
     // Track 9 x 9 text fields.
-    private Map<Coordinates, SudokuTextField> coordinatesSudokuTextFieldMap;
+    private final Map<Coordinates, SudokuTextField> coordinatesSudokuTextFieldMap;
     private UserInterfaceContract.EventListener eventListener;
     // Styling boiler plate.
     private static final double WINDOW_Y = 732;
