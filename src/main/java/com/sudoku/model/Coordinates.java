@@ -1,4 +1,4 @@
-package com.sudoku.problemdomain;
+package com.sudoku.model;
 
 import java.util.Objects;
 

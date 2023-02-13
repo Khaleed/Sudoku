@@ -1,8 +1,8 @@
-package com.sudoku.userinterface;
+package com.sudoku.view;
 
 import com.sudoku.constants.GameState;
-import com.sudoku.problemdomain.Coordinates;
-import com.sudoku.problemdomain.Sudoku;
+import com.sudoku.model.Coordinates;
+import com.sudoku.model.Sudoku;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -32,12 +32,10 @@ public class UserInterfaceImpl implements UserInterfaceContract.View, EventHandl
     private static final double WINDOW_Y = 732;
     private static final double WINDOW_X = 668;
     private static final double BOARD_PADDING = 50;
-    private static final double BOARD_COORDINATES = 600; // X and Y
+    private static final double BOARD_COORDINATES = 575; // X and Y
     // Color.
     private static final Color WINDOW_BACKGROUND_COLOR = Color.rgb(150, 125, 0);
     private static final Color BOARD_BACKGROUND_COLOR = Color.rgb(224, 242, 241);
-    // Title
-    private static final String GAME_TITLE = "Sudoku";
 
     public UserInterfaceImpl(Stage stage) {
         this.stage = stage;
@@ -136,7 +134,7 @@ public class UserInterfaceImpl implements UserInterfaceContract.View, EventHandl
         while (i < 8) {
             int lineWeight;
             if (i == 2 || i == 5) {
-                lineWeight = 3;
+                lineWeight = 4;
             } else {
                 lineWeight = 2;
             }
@@ -165,8 +163,8 @@ public class UserInterfaceImpl implements UserInterfaceContract.View, EventHandl
         final int delta = 64;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                int x = xOrigin * i * delta;
-                int y = yOrigin * j * delta;
+                int x = xOrigin + (i * delta);
+                int y = yOrigin + (j * delta);
                 // Create and style square of the game board.
                 SudokuTextField square = new SudokuTextField(i, j);
                 styleSudokuSquare(square, x, y);
@@ -201,7 +199,7 @@ public class UserInterfaceImpl implements UserInterfaceContract.View, EventHandl
     }
 
     private void renderTitle(Group group) {
-        Text text = new Text(235, 690, GAME_TITLE);
+        Text text = new Text(235, 690, "Sudoku");
         text.setFill(Color.ROYALBLUE);
         text.setFont(new Font(43));
         group.getChildren().add(text);

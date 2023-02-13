@@ -2,7 +2,7 @@ package com.sudoku.gamelogic;
 
 import com.sudoku.constants.GameState;
 import com.sudoku.constants.Rank;
-import com.sudoku.problemdomain.Sudoku;
+import com.sudoku.model.Sudoku;
 
 import java.util.ArrayList;
 import java.util.HashSet;

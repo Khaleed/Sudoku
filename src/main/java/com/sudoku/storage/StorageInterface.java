@@ -1,10 +1,11 @@
 package com.sudoku.storage;
 
-import com.sudoku.problemdomain.Sudoku;
+import com.sudoku.model.Sudoku;
 
 import java.io.IOException;
 
+/** Reads and writes data. */
 public interface StorageInterface {
-    void storeData(Sudoku sudoku) throws IOException;
     Sudoku retrieveData() throws IOException;
+    void storeData(Sudoku sudoku) throws IOException;
 }

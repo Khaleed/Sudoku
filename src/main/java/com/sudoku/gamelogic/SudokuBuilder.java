@@ -2,9 +2,9 @@ package com.sudoku.gamelogic;
 
 import com.sudoku.storage.FileStorageImpl;
 import com.sudoku.storage.StorageInterface;
-import com.sudoku.problemdomain.Sudoku;
-import com.sudoku.userinterface.UserInterfaceContract;
-import com.sudoku.userinterface.controllogic.ControlLogic;
+import com.sudoku.model.Sudoku;
+import com.sudoku.view.UserInterfaceContract;
+import com.sudoku.controllogic.ControlLogic;
 
 import java.io.IOException;
 

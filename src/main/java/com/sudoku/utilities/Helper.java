@@ -1,6 +1,6 @@
 package com.sudoku.utilities;
 
-import com.sudoku.problemdomain.Sudoku;
+import com.sudoku.model.Sudoku;
 
 import java.util.Arrays;
 

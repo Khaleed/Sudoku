@@ -1,4 +1,4 @@
-package com.sudoku.problemdomain;
+package com.sudoku.model;
 
 import com.sudoku.constants.GameState;
 import com.sudoku.utilities.Helper;
@@ -9,15 +9,15 @@ import java.io.Serializable;
 public class Sudoku implements Serializable {
     public static final int LIMIT = 9;
     private final GameState gameState;
-    private final int[][] grid;
+    private final int[][] board;
 
     public Sudoku(GameState gameState, int[][] grid) {
         this.gameState = gameState;
-        this.grid = grid;
+        this.board = grid;
     }
 
     public int[][] getGridCopy() {
-        return Helper.copyToNewArray(grid);
+        return Helper.copyToNewArray(board);
     }
 
     public GameState getGameState() {

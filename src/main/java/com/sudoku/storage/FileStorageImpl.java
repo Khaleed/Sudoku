@@ -1,6 +1,6 @@
 package com.sudoku.storage;
 
-import com.sudoku.problemdomain.Sudoku;
+import com.sudoku.model.Sudoku;
 
 import java.io.File;
 import java.io.FileInputStream;

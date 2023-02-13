@@ -1,11 +1,11 @@
-package com.sudoku.userinterface.controllogic;
+package com.sudoku.controllogic;
 
 import com.sudoku.constants.Dialog;
 import com.sudoku.constants.GameState;
 import com.sudoku.gamelogic.GameLogic;
 import com.sudoku.storage.StorageInterface;
-import com.sudoku.problemdomain.Sudoku;
-import com.sudoku.userinterface.UserInterfaceContract;
+import com.sudoku.model.Sudoku;
+import com.sudoku.view.UserInterfaceContract;
 
 import java.io.IOException;
 

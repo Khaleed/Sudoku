@@ -1,4 +1,4 @@
-package com.sudoku.userinterface;
+package com.sudoku.view;
 
 import javafx.scene.control.TextField;
 
@@ -23,14 +23,14 @@ public class SudokuTextField extends TextField {
     @Override
     public void replaceText(int start, int end, String text) {
         // To avoid repeat numbers when user enters input on text field.
-        if (!text.matches("[0-9]")) {
+        if (text.matches("[0-9]")) {
             super.replaceText(start, end, text);
         }
     }
 
     @Override
     public void replaceSelection(String replacement) {
-        if (!replacement.matches("[0-9]")) {
+        if (replacement.matches("[0-9]")) {
             super.replaceSelection(replacement);
         }
     }

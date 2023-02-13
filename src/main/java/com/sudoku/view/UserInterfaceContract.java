@@ -1,6 +1,6 @@
-package com.sudoku.userinterface;
+package com.sudoku.view;
 
-import com.sudoku.problemdomain.Sudoku;
+import com.sudoku.model.Sudoku;
 
 public class UserInterfaceContract {
     public interface EventListener {

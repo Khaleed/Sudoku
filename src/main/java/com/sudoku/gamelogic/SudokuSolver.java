@@ -1,7 +1,7 @@
 package com.sudoku.gamelogic;
 
-import com.sudoku.problemdomain.Coordinates;
-import com.sudoku.problemdomain.Sudoku;
+import com.sudoku.model.Coordinates;
+import com.sudoku.model.Sudoku;
 
 /** Sudoku Solver Class with Recursive Backtracker naive algorithm. */
 public class SudokuSolver {
