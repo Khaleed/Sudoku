@@ -1,3 +1,5 @@
+package com.sudoku;
+
 import com.sudoku.SudokuApp;
 
 public class Main {

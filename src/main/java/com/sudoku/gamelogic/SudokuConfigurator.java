@@ -11,19 +11,20 @@ import java.util.Random;
 
 /** Class that manages the configuration of a Sudoku Game. */
 public class SudokuConfigurator {
+    private static final Random RANDOM = new Random(System.currentTimeMillis());
+
     public static int[][] getNewGameBoard() {
         return initGame(getSolvedGame());
     }
 
     // Initialise a solvable game.
-    private static int[][] initGame(int[][] solvedBoard) {
-        Random random = new Random(System.currentTimeMillis());
+    private static int[][] initGame(int[][] board) {
         boolean isSolvable = false;
         int[][] solvableBoard = new int[Sudoku.LIMIT][Sudoku.LIMIT];
         while (!isSolvable) {
-            Helper.duplicateValues(solvedBoard, solvableBoard);
+            Helper.duplicateValues(board, solvableBoard);
             // Remove x numbers from solved board.
-            removeValsFromBoard(random, solvableBoard, 40);
+            removeValsFromBoard(solvableBoard);
             // Create solveable starting board for the user.
             int[][] startBoard = new int[Sudoku.LIMIT][Sudoku.LIMIT];
             Helper.duplicateValues(solvableBoard, startBoard);
@@ -32,11 +33,11 @@ public class SudokuConfigurator {
         return solvableBoard;
     }
 
-    private static void removeValsFromBoard(Random random, int[][] solvableBoard, int n) {
+    private static void removeValsFromBoard(int[][] solvableBoard) {
         int i = 0;
-        while (i < n) {
-            int nextX = random.nextInt(Sudoku.LIMIT);
-            int nextY = random.nextInt(Sudoku.LIMIT);
+        while (i < 40) {
+            int nextX = RANDOM.nextInt(Sudoku.LIMIT);
+            int nextY = RANDOM.nextInt(Sudoku.LIMIT);
             if (!isSquareEmpty(solvableBoard, nextX, nextY)) {
                 solvableBoard[nextX][nextY] = 0;
                 i += 1;
@@ -47,16 +48,15 @@ public class SudokuConfigurator {
     // TODO(Khalid): Implement a better algorithm than the brute force version.
     private static int[][] getSolvedGame() {
         int[][] newBoard = new int[Sudoku.LIMIT][Sudoku.LIMIT];
-        Random random = new Random(System.currentTimeMillis());
-        for (int num = 1; num <= 9; num++) {
+        for (int num = 1; num <= Sudoku.LIMIT; num++) {
             // Keep allocating numbers.
-            allocateValues(num, random, newBoard);
+            allocateValues(num, newBoard);
         }
         return newBoard;
     }
 
     /** TODO(Khalid): Refactor to include graph coloring algorithm. */
-    private static void allocateValues(int num, Random random, int[][] newBoard) {
+    private static void allocateValues(int num, int[][] newBoard) {
         int numAlloc = 0;
         List<Coordinates> coordinates = new ArrayList<>();
         int interrupt = 0;
@@ -74,8 +74,8 @@ public class SudokuConfigurator {
                     num = 1;
                 }
             }
-            int nextX = random.nextInt(Sudoku.LIMIT);
-            int nextY = random.nextInt(Sudoku.LIMIT);
+            int nextX = RANDOM.nextInt(Sudoku.LIMIT);
+            int nextY = RANDOM.nextInt(Sudoku.LIMIT);
             if (isSquareEmpty(newBoard, nextX, nextY)) {
                 newBoard[nextX][nextY] = num;
                 if (GameLogic.isMoveValid(newBoard)) {

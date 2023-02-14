@@ -71,11 +71,13 @@ public class UserInterfaceImpl implements UserInterfaceContract.View, EventHandl
                 square.setText(val);
                 // Do we have a new game?
                 if (sudoku.getGameState() == GameState.NEW) {
-                    square.setStyle("-fx-opacity: 1;");
-                    square.setDisable(false);
-                } else {
-                    square.setStyle("-fx-opacity: 0.7;");
-                    square.setDisable(true);
+                    if (val.equals("")) {
+                        square.setStyle("-fx-opacity: 1;");
+                        square.setDisable(false);
+                    } else {
+                        square.setStyle("-fx-opacity: 0.7;");
+                        square.setDisable(true);
+                    }
                 }
             }
         }
@@ -101,9 +103,9 @@ public class UserInterfaceImpl implements UserInterfaceContract.View, EventHandl
         if (keyEvent.getEventType() == KeyEvent.KEY_PRESSED) {
             String text = keyEvent.getText();
             if (text.matches("[0-9]")) {
-                handleInput(Integer.parseInt(text), keyEvent.getSource());
+                handleInput(keyEvent.getSource(), Integer.parseInt(text));
             } else if (KeyCode.BACK_SPACE == keyEvent.getCode()) {
-                handleInput(0, keyEvent.getSource());
+                handleInput(keyEvent.getSource(), 0);
             } else {
                 ((TextField) keyEvent.getSource()).setText("");
             }
@@ -111,7 +113,7 @@ public class UserInterfaceImpl implements UserInterfaceContract.View, EventHandl
         keyEvent.consume();
     }
 
-    private void handleInput(int val, Object source) {
+    private void handleInput(Object source, int val) {
         eventListener.onInput(
                 ((SudokuTextField) source).getX(),
                 ((SudokuTextField) source).getY(),
