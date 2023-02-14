@@ -12,7 +12,6 @@ public class SudokuBuilder {
     public static void build(UserInterfaceContract.View ui) throws IOException {
         Sudoku initGame;
         StorageInterface storage = new FileStorageImpl();
-
         try {
             initGame = storage.retrieveData();
         } catch (IOException io) {

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/** Class that implements read and writes to a file. */
 public class FileStorageImpl implements StorageInterface {
     private static final File FILE = new File(System.getProperty("user.home"), "sudokudata.txt");
 
@@ -17,8 +18,8 @@ public class FileStorageImpl implements StorageInterface {
         try (FileOutputStream fileOutputStream = new FileOutputStream(FILE);
              ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);) {
             objectOutputStream.writeObject(sudoku);
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
             throw new IOException("Unable to store data requested");
         }
     }

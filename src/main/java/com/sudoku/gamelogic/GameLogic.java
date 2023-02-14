@@ -15,10 +15,11 @@ public class GameLogic {
     }
 
     public static GameState finishedGame(int[][] board) {
-        return ((!isMoveValid(board)) || isSquareFilled(board)) ? GameState.INPLAY : GameState.FINISHED;
+        return (!areAllSquaresFilled(board) || !isMoveValid(board)) ?
+                GameState.INPLAY : GameState.FINISHED;
     }
 
-    public static boolean isSquareFilled(int[][] board) {
+    public static boolean areAllSquaresFilled(int[][] board) {
         for (int i = 0; i < Sudoku.LIMIT; i++) {
             for (int j = 0; j < Sudoku.LIMIT; j++) {
                 if (board[i][j] == 0) return false;
@@ -28,16 +29,16 @@ public class GameLogic {
     }
 
     public static boolean isMoveValid(int[][] board) {
-        return areValsInRowValid(board) && areValsInColValid(board) && isSquareRowValid(board);
+        return areValsInRowValid(board) && areValsInColValid(board) && areSquaresValid(board);
     }
 
-    private static boolean isSquareRowValid(int[][] board) {
-        return (isSquareRowValid(Rank.TOP, board) ||
-                isSquareRowValid(Rank.MIDDLE, board) ||
-                isSquareRowValid(Rank.BOTTOM, board));
+    private static boolean areSquaresValid(int[][] board) {
+        return (isRowOfSquaresValid(Rank.TOP, board) &&
+                isRowOfSquaresValid(Rank.MIDDLE, board) &&
+                isRowOfSquaresValid(Rank.BOTTOM, board));
     }
 
-    private static boolean isSquareRowValid(Rank rank, int[][] board) {
+    private static boolean isRowOfSquaresValid(Rank rank, int[][] board) {
         switch (rank) {
             case TOP -> {
                 if (isSquareValid(0, 0, board)) return true;
@@ -58,6 +59,7 @@ public class GameLogic {
         }
     }
 
+    // TODO(Khalid): Re-assess / test.
     private static boolean isSquareValid(int i, int j, int[][] board) {
         List<Integer> squares = new ArrayList<>();
         int xEnd = i + 3;
@@ -66,9 +68,9 @@ public class GameLogic {
             while (j < yEnd) {
                 squares.add(board[xEnd][yEnd]);
                 i += 1;
+                j += 1;
             }
             i -= 3;
-            j += 1;
         }
         return isDuplicate(squares);
     }
