@@ -4,4 +4,6 @@ module sudoku {
     requires javafx.base;
     requires javafx.graphics;
     requires javafx.controls;
+
+    exports com.sudoku to javafx.graphics;
 }
